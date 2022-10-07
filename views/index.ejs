@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Socket.io 예제</title>
+    </head>
+<body>
+    <div>
+        <input type = "text" id = "text">
+        <input type = "button" id = "btn" value = "submit">
+    </div>
+
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        window.onload = function() {
+            var button = document.getElementById('btn');
+            var text = document.getElementById('text');
+            button.addEventListener('click', function(err){
+                if(err){    console.log(err); }
+                    console.log('client send message: ', text.value);
+                    socket.emit('send message', text.value);
+            })
+            var socket = io.connect();
+            socket.on('new message', function(msg){
+                console.log('server recv message  : ', msg);
+            });
+        }
+    </script>
+</body>
+</html>
